@@ -70,12 +70,6 @@ library("data.table")
   y_train<-read.table(files[28])
   
   
-  
-  
-  
-  #///////////////////////////////////////
-  #///appending training and testing data
-  
   6. The source data is in two parts, test and training which is often done to files used for machine learning.    These files are joined back together to form a larger data set.  
 
 Also, the subjects and activities data files are joined together here too:
@@ -84,8 +78,7 @@ Also, the subjects and activities data files are joined together here too:
   fulldata<-rbind(x_train,x_test)
   activities<-rbind(y_train,y_test)
   
-  #///////////////////////////////////////////////
-  #////changing column names in both subjects and activities
+ 
 
 7.Changing the column names to something more human readable
   
@@ -93,8 +86,7 @@ Also, the subjects and activities data files are joined together here too:
   names(activities)<- c('Activity')
   
   
-  #///////////////////////////////////////////////
-  #////makes the features v2 column into column names for datafull:
+
 
 8. Since the features dataset contains the more human readable form of the column names in the main data source they are applied to that table here. 
   
@@ -102,8 +94,6 @@ Also, the subjects and activities data files are joined together here too:
   colnames(fulldata)<-labelNames
   
   
-  #//////////////////////////////////////////////////////////////////////
-  #//////loads a copy of activities with the appropriate text for the code map
 
 9.  The code that descibes the type of activity is numeric in the main source data, and so here it is changed to a more human readable form.  
   
@@ -114,28 +104,14 @@ Also, the subjects and activities data files are joined together here too:
   activities$Activity[activities$Activity==5]<-'STANDING'
   activities$Activity[activities$Activity==6]<-'LAYING'
   
-  #///////////////Renames the V1 label to Activity
-  
  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  #///////////////////////////////////////////////////////////////////////
-  #/////Adds an id field to subjects, datafull, and activities to make merging easier
-  
+ 
 10.  My computer ran itsefl out of memeory when I merged the data into one table because I used the row index as the common field.  Here I add a numeric field to the various data source tables to make them able to merge with far less resource
   
   subjects<-cbind('generated_uid3'=sprintf('%03d', 1:nrow(subjects)),subjects)
   activities<-cbind('generated_uid3'=sprintf('%03d', 1:nrow(activities)),activities)
   fulldata<-cbind('generated_uid3'=sprintf('%03d', 1:nrow(fulldata)),fulldata)
-  #/////////////////////////////////////////////
-  #/////merge all of these by id field into ---datasimple
+ 
   
   11. Creating the large data file datasimple that has all of the data fields and also the Subject and the Activity fields added together.
   
@@ -144,10 +120,6 @@ Also, the subjects and activities data files are joined together here too:
   datasimple=merge(datasimpleX,fulldata, by=c('generated_uid3'))
   
   
-  #//////////////////////////////Main table is constructed///////////////////////
-  
-  #///////////////////////////////
-  #//////Subsetting main table --datasimple---- for means and standard deviation
 
 12.  Subsetting the columns that are related to mean and standard deviation measurement.  Very little was noted about whether these labels are cluttering or informative, but I found something to like about retaining all of them provide they had the word "mean" or "std" contained in the column name.   
   
