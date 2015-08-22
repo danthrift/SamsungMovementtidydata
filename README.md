@@ -56,10 +56,10 @@ library("data.table")
   
 5. Importing the various source tables into RStudio  
   
-  #//importing tables as dataframes
+ 
   activity_labels<-read.table(files[1])
   features<-read.table(files[2])
-  #//features_info<-read.table(files[3])
+
   
   subject_test<-read.table(files[14])
   x_test<-read.table(files[15])
